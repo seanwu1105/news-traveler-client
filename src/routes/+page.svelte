@@ -21,11 +21,11 @@
 </Navbar>
 
 <Heading tag="h1" class="text-center m-4">News Traveler</Heading>
-<P opacity={1} space="normal" size="3xl" class="text-center m-3"
+<P opacity={100} space="normal" size="3xl" class="text-center m-3"
   >Gather opposite news to the same event.</P
 >
 
-<div class="m-10">
+<div class="mx-auto mt-10 max-w-4xl">
   <Search>
     <Button><MagnifyingGlass class="focus:outline-none mr-1" /> Search</Button>
   </Search>
