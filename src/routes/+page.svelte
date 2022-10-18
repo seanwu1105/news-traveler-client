@@ -27,6 +27,8 @@
 
 <div class="mx-auto mt-10 max-w-4xl">
   <Search>
-    <Button><MagnifyingGlass class="focus:outline-none mr-1" /> Search</Button>
+    <Button href="/search"
+      ><MagnifyingGlass class="focus:outline-none mr-1" /> Search</Button
+    >
   </Search>
 </div>
