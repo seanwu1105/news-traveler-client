@@ -1,3 +1,20 @@
-<h1 class="text-3xl font-bold underline">Hello world!</h1>
+<script>
+  import IconGitHub from '~icons/ri/github-line'
+</script>
 
-<a href="/search" class="link">search</a>
+<div class="navbar">
+  <div class="navbar-start" />
+  <div class="navbar-center" />
+  <div class="navbar-end">
+    <a
+      href="https://github.com/seanwu1105/news-traveler-client"
+      target="_blank"
+      rel="noreferrer"
+      class="btn btn-ghost btn-circle"
+    >
+      <IconGitHub />
+    </a>
+  </div>
+</div>
+
+<h1>News Traveler</h1>
