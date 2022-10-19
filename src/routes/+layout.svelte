@@ -7,6 +7,10 @@
   export let data: LayoutData
 </script>
 
+<svelte:head>
+  <title>News Traveler</title>
+</svelte:head>
+
 <div class="navbar">
   <div class="navbar-start">
     {#if !data.isRoot}
