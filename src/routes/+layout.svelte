@@ -16,7 +16,10 @@
 <nav class="navbar flex-initial">
   <div class="navbar-start">
     {#if !data.isRoot}
-      <a href="/" class="btn btn-ghost text-xl normal-case">News Traveler</a>
+      <a href="/" class="btn btn-ghost text-xl normal-case"
+        >News
+        <span class="text-primary">Traveler</span></a
+      >
     {/if}
   </div>
   <div class="navbar-center" />

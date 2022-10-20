@@ -5,7 +5,10 @@
 </script>
 
 <main>
-  <h1 class="m-3 text-center text-5xl font-semibold">News Traveler</h1>
+  <h1 class="m-3 text-center text-5xl font-semibold">
+    News
+    <span class="text-primary">Traveler</span>
+  </h1>
   <p class="m-2 text-center text-2xl">
     Gather opposite news to the same event.
   </p>

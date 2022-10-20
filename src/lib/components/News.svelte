@@ -1,6 +1,5 @@
 <script lang="ts">
   import IconEmotionHappy from '~icons/ri/emotion-happy-line'
-  import IconGovernment from '~icons/ri/government-line'
 
   export let id: string
   export let title: string
@@ -21,7 +20,6 @@
         <IconEmotionHappy
           class="text-emerald-700 dark:text-emerald-400 text-sm"
         />
-        <IconGovernment class="text-rose-700 dark:text-rose-400 text-sm" />
       </div>
 
       <article>
