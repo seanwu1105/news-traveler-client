@@ -11,7 +11,7 @@
   <title>News Traveler</title>
 </svelte:head>
 
-<div class="navbar">
+<nav class="navbar">
   <div class="navbar-start">
     {#if !data.isRoot}
       <a href="/" class="btn btn-ghost text-xl normal-case">News Traveler</a>
@@ -43,6 +43,6 @@
       <IconGitHub />
     </a>
   </div>
-</div>
+</nav>
 
 <slot />

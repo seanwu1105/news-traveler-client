@@ -1,5 +1,5 @@
 <script lang="ts">
-  import News from '$lib/News.svelte'
+  import News from '$lib/components/News.svelte'
   import type { ComponentProps } from 'svelte'
 
   const newsData: readonly ComponentProps<News>[] = [
@@ -36,6 +36,8 @@
   ]
 </script>
 
-{#each newsData as news}
-  <News {...news} />
-{/each}
+<main>
+  {#each newsData as news}
+    <News {...news} />
+  {/each}
+</main>
