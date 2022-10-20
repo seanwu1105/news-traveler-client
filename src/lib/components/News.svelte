@@ -8,30 +8,39 @@
   export let publishedAt: string
 </script>
 
-<a href={`/article/${id}`}
+<a class="group" href={`/article/${id}`}
   ><section
-    class="flex gap-2 p-2 h-44 overflow-hidden transition hover:bg-base-300 rounded-lg m-2"
+    class="flex m-2 rounded-2xl bg-base-200 transition group-hover:bg-base-300"
   >
-    <figure class="flex-1 rounded-lg overflow-hidden max-w-xs">
-      <img src={urlToImage} alt={title} class="w-full h-full object-cover" />
-    </figure>
-    <div class="flex-1 flex flex-col gap-1">
-      <div class="flex gap-1">
-        <IconEmotionHappy
-          class="text-emerald-700 dark:text-emerald-400 text-sm"
-        />
+    <div
+      class="flex gap-2 p-2 h-44 overflow-hidden flex-1 transition rounded-2xl bg-base-300 group-hover:bg-primary group-hover:text-primary-content"
+    >
+      <figure class="flex-1 rounded-lg overflow-hidden max-w-xs">
+        <img src={urlToImage} alt={title} class="w-full h-full object-cover" />
+      </figure>
+      <div class="flex-1 flex flex-col gap-1">
+        <article>
+          <h2 class="line-clamp-2 text-lg font-bold mb-1">
+            {title}
+          </h2>
+          <p class="line-clamp-2">
+            {description}
+          </p>
+        </article>
+
+        <time class="text-sm">{publishedAt}</time>
       </div>
+    </div>
 
-      <article>
-        <h2 class="line-clamp-2 text-lg font-bold mb-1">
-          {title}
-        </h2>
-        <p class="line-clamp-2">
-          {description}
-        </p>
-      </article>
-
-      <time class="text-sm">{publishedAt}</time>
+    <div
+      class="flex flex-col gap-1 justify-center items-center p-2 lg:flex-row lg:gap-5"
+    >
+      <div class="flex flex-col gap-1 items-center">
+        <IconEmotionHappy
+          class="text-emerald-700 dark:text-emerald-400 text-lg lg:text-3xl"
+        />
+        <span class="lg:text-lg">75%</span>
+      </div>
     </div>
   </section></a
 >
