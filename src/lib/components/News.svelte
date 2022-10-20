@@ -14,7 +14,7 @@
     class="flex gap-2 p-2 h-44 overflow-hidden transition hover:bg-base-300"
   >
     <figure class="flex-1 rounded-lg overflow-hidden max-w-xs">
-      <img src={urlToImage} alt={title} class="w-full" />
+      <img src={urlToImage} alt={title} class="w-full h-full object-cover" />
     </figure>
     <div class="flex-1 flex flex-col gap-1">
       <div class="flex gap-1">

@@ -11,7 +11,7 @@
   <title>News Traveler</title>
 </svelte:head>
 
-<nav class="navbar">
+<nav class="navbar flex-initial">
   <div class="navbar-start">
     {#if !data.isRoot}
       <a href="/" class="btn btn-ghost text-xl normal-case">News Traveler</a>
@@ -45,4 +45,6 @@
   </div>
 </nav>
 
-<slot />
+<main class="flex-1 overflow-auto">
+  <slot />
+</main>
