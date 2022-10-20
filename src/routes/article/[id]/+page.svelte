@@ -161,10 +161,11 @@
   <article
     class="flex-1 card card-compact card-bordered ml-2 mb-2 overflow-auto"
   >
-    <figure>
+    <figure class="px-4 pt-4">
       <img
         src="https://s.yimg.com/os/creatr-uploaded-images/2022-10/4d5df170-4f00-11ed-a7aa-b9f7641311d6"
         alt="cover"
+        class="rounded-xl"
       />
     </figure>
 
@@ -174,6 +175,7 @@
           <h1 class="card-title">
             iPadOS 16 and macOS Ventura arrive on October 24th
           </h1>
+          <span>Engadget</span> • <span>Devindra Hardawar</span> •
           <time>2022-10-18T16:22:57Z</time>
         </div>
 
@@ -187,7 +189,7 @@
         >
       </header>
 
-      <p class="text-base">
+      <p class="text-base text-justify">
         You'll finally be able to get your hands on iPadOS 16 next Monday,
         October 24th, Apple announced this morning. The new OS includes support
         for Apple's Stage Manager multi-tasking feature, which should make it
