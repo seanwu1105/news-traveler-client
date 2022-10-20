@@ -11,7 +11,7 @@
 
 <a href={`/article/${id}`}
   ><section
-    class="flex gap-2 p-2 h-44 overflow-hidden transition hover:bg-base-300"
+    class="flex gap-2 p-2 h-44 overflow-hidden transition hover:bg-base-300 rounded-lg m-2"
   >
     <figure class="flex-1 rounded-lg overflow-hidden max-w-xs">
       <img src={urlToImage} alt={title} class="w-full h-full object-cover" />
