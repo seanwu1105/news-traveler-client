@@ -1,20 +1,20 @@
 <script lang="ts">
   import IconEmotionHappy from '~icons/ri/emotion-happy-line'
   import IconGovernment from '~icons/ri/government-line'
+
+  export let id: string
+  export let title: string
+  export let description: string
+  export let urlToImage: string
+  export let publishedAt: string
 </script>
 
-<a
-  href="https://nypost.com/2022/10/19/jeff-bezos-blue-origins-goal-to-move-all-polluting-industries-off-earth/"
-  target="_blank"
-  rel="noreferrer"
+<a href={`/article/${id}`}
   ><div
     class="flex gap-2 p-2 h-44 overflow-hidden transition hover:bg-base-300"
   >
     <figure class="flex-1 rounded-lg overflow-hidden max-w-md">
-      <img
-        src="https://nypost.com/wp-content/uploads/sites/2/2022/10/bezos-blue-origin-pollution-mitigation-goals-comp-2.jpg?quality=75&strip=all&w=1024"
-        alt="Bezos was responding to critics who say he should invest to solve problems on Earth."
-      />
+      <img src={urlToImage} alt={title} class="w-full" />
     </figure>
     <div class="flex-1 flex flex-col gap-1">
       <div class="flex gap-1">
@@ -26,19 +26,14 @@
 
       <article>
         <p class="line-clamp-2 text-lg font-bold mb-1">
-          Jeff Bezos: Blue Origin's goal to 'move all polluting industries off
-          Earth
+          {title}
         </p>
         <p class="line-clamp-2">
-          Bezos was responding to critics who say he should invest to solve
-          problems on Earth. Bezos was responding to critics who say he should
-          invest to solve problems on Earth. Bezos was responding to critics who
-          say he should invest to solve problems on Earth. Bezos was responding
-          to critics who say he should invest to solve problems on Earth.
+          {description}
         </p>
       </article>
 
-      <p class="text-sm">14 minutes ago</p>
+      <p class="text-sm">{publishedAt}</p>
     </div>
   </div></a
 >
