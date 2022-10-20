@@ -1,5 +1,5 @@
 import type { LayoutLoad } from './$types'
 
-export const load: LayoutLoad = ({ url: { pathname } }) => {
-  return { isRoot: pathname === '/' }
-}
+export const load: LayoutLoad = ({ url: { pathname } }) => ({
+  isRoot: pathname === '/',
+})
