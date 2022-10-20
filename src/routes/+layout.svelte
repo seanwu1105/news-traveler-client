@@ -5,6 +5,8 @@
   import type { LayoutData } from './$types'
 
   export let data: LayoutData
+
+  let query = ''
 </script>
 
 <svelte:head>
@@ -20,18 +22,25 @@
   <div class="navbar-center" />
   <div class="navbar-end">
     {#if !data.isRoot}
-      <div class="form-control">
-        <div class="input-group input-group-sm">
-          <input
-            type="text"
-            placeholder="Search…"
-            class="input input-bordered input-sm"
-          />
-          <a href="/search" class="btn btn-square btn-sm">
-            <IconSearch width="1.4em" height="1.4em" />
-          </a>
+      <form action={`/search`}>
+        <div class="form-control">
+          <div class="input-group input-group-sm">
+            <input
+              bind:value={query}
+              name="query"
+              type="text"
+              placeholder="Search…"
+              class="input input-bordered input-sm"
+            />
+            <button
+              disabled={query.length === 0 ? true : null}
+              class="btn btn-square btn-sm"
+            >
+              <IconSearch width="1.4em" height="1.4em" />
+            </button>
+          </div>
         </div>
-      </div>
+      </form>
     {/if}
 
     <a

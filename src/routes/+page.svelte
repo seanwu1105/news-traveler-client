@@ -1,5 +1,7 @@
 <script>
   import IconSearch from '~icons/ri/search-line'
+
+  let query = ''
 </script>
 
 <main>
@@ -8,16 +10,23 @@
     Gather opposite news to the same event.
   </p>
 
-  <div class="form-control m-4">
-    <div class="input-group justify-center">
-      <input
-        type="text"
-        placeholder="Search…"
-        class="input input-bordered min-w-[400px]"
-      />
-      <a href="/search" class="btn btn-square">
-        <IconSearch />
-      </a>
+  <form action={`/search`}>
+    <div class="form-control m-4">
+      <div class="input-group justify-center">
+        <input
+          bind:value={query}
+          name="query"
+          type="text"
+          placeholder="Search…"
+          class="input input-bordered min-w-[400px]"
+        />
+        <button
+          class="btn btn-square"
+          disabled={query.length === 0 ? true : null}
+        >
+          <IconSearch />
+        </button>
+      </div>
     </div>
-  </div>
+  </form>
 </main>
