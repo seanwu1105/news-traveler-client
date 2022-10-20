@@ -1,6 +1,7 @@
 <script lang="ts">
+  import News from '$lib/components/News.svelte'
+  import NoData from '$lib/components/NoData.svelte'
   import IconExternalLink from '~icons/ri/external-link-line'
-  import News from '../../../lib/components/News.svelte'
   import type { PageData } from './$types'
 
   export let data: PageData
@@ -40,8 +41,12 @@
   <aside class="flex-1 overflow-auto">
     <h2 class="text-xl font-bold m-2">Same Event, Different Stories</h2>
 
-    {#each data.relatedNews as news}
-      <News {...news} />
-    {/each}
+    {#if data.relatedNews.length === 0}
+      <NoData />
+    {:else}
+      {#each data.relatedNews as news}
+        <News {...news} />
+      {/each}
+    {/if}
   </aside>
 </div>
