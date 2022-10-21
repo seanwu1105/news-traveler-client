@@ -21,12 +21,10 @@
           name="query"
           type="text"
           placeholder="Search…"
-          class="input input-bordered min-w-[400px]"
+          required
+          class="input input-bordered"
         />
-        <button
-          class="btn btn-square"
-          disabled={query.length === 0 ? true : null}
-        >
+        <button class="btn btn-square">
           <IconSearch />
         </button>
       </div>
