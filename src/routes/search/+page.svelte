@@ -10,6 +10,12 @@
   <NoData />
 {:else}
   {#each data.results as news}
-    <News {...news} />
+    <News
+      id={JSON.stringify(news)}
+      title={news.title}
+      description={news.description}
+      urlToImage={news.urlToImage}
+      publishedAt={news.publishedAt}
+    />
   {/each}
 {/if}
