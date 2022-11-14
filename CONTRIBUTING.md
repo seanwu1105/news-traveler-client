@@ -14,3 +14,9 @@ Run the following command to run the tests:
 ```sh
 npm test
 ```
+
+## Environment Variables
+
+The following environment variables need to be set:
+
+- `NEWS_TRAVELER_API_URL`

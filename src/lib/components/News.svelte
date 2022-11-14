@@ -41,10 +41,10 @@
     </div>
 
     <div
-      class="flex gap-2 p-2 h-44 overflow-hidden flex-1 transition rounded-2xl bg-base-300 group-hover:bg-primary group-hover:text-primary-content"
+      class="flex gap-2 p-2 h-36 overflow-hidden flex-1 transition rounded-2xl bg-base-300 group-hover:bg-primary group-hover:text-primary-content"
     >
       <div class="flex-1 flex flex-col gap-1">
-        <article>
+        <article class="flex-1">
           <h2 class="line-clamp-2 text-lg font-bold mb-1">
             {title}
           </h2>
