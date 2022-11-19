@@ -1,11 +1,12 @@
+import { throwErrorResponse } from '$lib/errors'
 import { API_URL } from './env'
-import { throwErrorResponse } from './errors'
+import type { CancelableApiRequest } from './utils'
 
 export async function search({
   fetch,
   signal,
   query,
-}: SearchArgs): Promise<SearchResult> {
+}: CancelableApiRequest<SearchArgs>): Promise<SearchResult> {
   const url = new URL('/search', API_URL)
   url.searchParams.set('query', query)
   const response = await fetch(url, { signal })
@@ -15,11 +16,7 @@ export async function search({
   return { ...(await response.json()) }
 }
 
-type SearchArgs = {
-  readonly fetch: typeof fetch
-  readonly signal?: AbortSignal
-  readonly query: string
-}
+type SearchArgs = { readonly query: string }
 
 type SearchResult = {
   readonly results: readonly News[]

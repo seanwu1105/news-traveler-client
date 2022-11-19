@@ -3,7 +3,7 @@
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.fixAll": true,
-    "source.organizeImports": false // Due to https://github.com/microsoft/vscode/issues/165326
+    "source.organizeImports": true
   },
   "editor.quickSuggestions": {
     "strings": true

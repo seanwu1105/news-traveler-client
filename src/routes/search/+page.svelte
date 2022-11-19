@@ -1,8 +1,8 @@
 <script lang="ts">
   import News from '$lib/components/News.svelte'
   import NoData from '$lib/components/NoData.svelte'
+  import { setArticleNews } from '../article/+page'
   import type { PageData } from './$types'
-  import { news as articleNews } from '../../routes/article/store'
 
   export let data: PageData
 </script>
@@ -15,8 +15,8 @@
       <div class="w-full md:w-1/2">
         <a
           class="group"
-          on:click={() => articleNews.set(news)}
-          href={`/article`}
+          on:click={() => setArticleNews(news)}
+          href={`/article?${new URLSearchParams({ query: data.query })}`}
         >
           <News
             title={news.title}

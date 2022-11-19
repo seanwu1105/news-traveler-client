@@ -1,4 +1,4 @@
-<div class="flex h-full w-full flex-col justify-center gap-4">
+<div class="flex h-full w-full flex-col p-16 gap-4">
   <div class="w-1/4 self-center">
     <svg
       xmlns="http://www.w3.org/2000/svg"
