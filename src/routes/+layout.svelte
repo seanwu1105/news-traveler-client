@@ -53,6 +53,6 @@
   </div>
 </nav>
 
-<main class="flex-1 overflow-auto flex flex-wrap">
+<main class="flex-1">
   <slot />
 </main>
