@@ -6,12 +6,11 @@
   import IconExternalLink from '~icons/ri/external-link-line'
   import News from '../../lib/components/News.svelte'
   import NoData from '../../lib/components/NoData.svelte'
-  import { setArticleNews } from '../article/+page'
   import type { PageData } from './$types'
 
   export let data: PageData
 
-  const listOppositeSentimentNews = async (): Promise<
+  $: listOppositeSentimentNews = async (): Promise<
     ListOppositeSentimentNewsResult['results']
   > => {
     const body: ListOppositeSentimentNewsArgs = {
@@ -77,8 +76,7 @@
       {:else}
         {#each oppositeSentimentNews as news}
           <a
-            class="group"
-            on:click={() => setArticleNews(news)}
+            on:click={() => (data.articleNews = news)}
             href={`/article?${new URLSearchParams({ query: data.query })}`}
           >
             <News

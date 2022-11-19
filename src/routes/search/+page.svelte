@@ -14,7 +14,6 @@
     {#each data.results as news}
       <div class="w-full md:w-1/2">
         <a
-          class="group"
           on:click={() => setArticleNews(news)}
           href={`/article?${new URLSearchParams({ query: data.query })}`}
         >
