@@ -12,7 +12,7 @@
 </script>
 
 <section
-  class="flex m-2 rounded-2xl bg-base-200 transition group-hover:bg-base-300"
+  class="flex m-2 rounded-2xl bg-base-200 transition group group-hover:bg-base-300"
 >
   <div
     class="flex flex-col gap-1 justify-center items-center p-2 lg:flex-row lg:gap-5"
