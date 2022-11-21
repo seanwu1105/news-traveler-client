@@ -21,7 +21,7 @@ export async function listOppositeSentimentNews({
 
   if (!response.ok) throwErrorResponse(response)
 
-  return { ...(await response.json()) }
+  return response.json()
 }
 
 export type ListOppositeSentimentNewsArgs = {

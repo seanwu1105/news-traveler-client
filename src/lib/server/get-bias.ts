@@ -1,12 +1,12 @@
 import { throwErrorResponse } from '$lib/errors'
 import { API_URL } from './env'
 import type { CancelableApiRequest } from './utils'
-export async function getSentiment({
+export async function getBias({
   fetch,
   signal,
   content,
-}: CancelableApiRequest<GetSentimentArgs>): Promise<GetSentimentResult> {
-  const url = new URL('/sentiment', API_URL)
+}: CancelableApiRequest<GetBiasArgs>): Promise<GetBiasResult> {
+  const url = new URL('/bias', API_URL)
   const body = JSON.stringify({ content })
   const response = await fetch(url, {
     signal,
@@ -20,13 +20,8 @@ export async function getSentiment({
   return response.json()
 }
 
-type GetSentimentArgs = { readonly content: string }
+export type GetBiasArgs = { readonly content: string }
 
-type GetSentimentResult = {
-  readonly sentiment: Sentiment
-}
-
-export type Sentiment = {
-  readonly kind: 'positive' | 'negative' | 'neutral'
-  readonly confidence: number
+export type GetBiasResult = {
+  readonly bias: number
 }

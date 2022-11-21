@@ -31,7 +31,7 @@
           class="text-neutral-700 dark:text-neutral-400 text-lg lg:text-3xl"
         />
       {/if}
-      <span class="lg:text-lg">{Number(sentimentScore * 100).toFixed(1)}%</span>
+      <span class="lg:text-lg">{(sentimentScore * 100).toFixed(1)}%</span>
     </div>
   </div>
 

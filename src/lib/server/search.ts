@@ -13,7 +13,7 @@ export async function search({
 
   if (!response.ok) throwErrorResponse(response)
 
-  return { ...(await response.json()) }
+  return response.json()
 }
 
 type SearchArgs = { readonly query: string }
