@@ -22,6 +22,7 @@
             description={news.description}
             urlToImage={news.urlToImage}
             publishedAt={news.publishedAt}
+            content={news.content}
             sentimentKind={news.sentiment.kind}
             sentimentScore={news.sentiment.confidence}
           /></a

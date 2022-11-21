@@ -68,15 +68,15 @@
           <div class="flex flex-col items-center">
             {#if data.articleNews.sentiment.kind === 'positive'}
               <IconEmotionHappy
-                class="text-emerald-700 dark:text-emerald-400 text-lg lg:text-md flex-1"
+                class="text-emerald-700 dark:text-emerald-400 text-lg flex-1"
               />
             {:else if data.articleNews.sentiment.kind === 'negative'}
               <IconEmotionUnhappy
-                class="text-rose-700 dark:text-rose-400 text-lg lg:text-md flex-1"
+                class="text-rose-700 dark:text-rose-400 text-lg flex-1"
               />
             {:else}
               <IconEmotionNormal
-                class="text-neutral-700 dark:text-neutral-400 text-lg lg:text-md flex-1"
+                class="text-neutral-700 dark:text-neutral-400 text-lg flex-1"
               />
             {/if}
             <p>{(data.articleNews.sentiment.confidence * 100).toFixed(1)}%</p>
@@ -88,15 +88,15 @@
             <div class="flex flex-col items-center">
               {#if bias > 0}
                 <IconGovernment
-                  class="text-red-500 dark:text-red-400 text-lg lg:text-md flex-1"
+                  class="text-red-500 dark:text-red-400 text-lg flex-1"
                 />
               {:else if bias < 0}
                 <IconGovernment
-                  class="text-blue-500 dark:text-blue-400 text-lg lg:text-md flex-1"
+                  class="text-blue-500 dark:text-blue-400 text-lg flex-1"
                 />
               {:else}
                 <IconGovernment
-                  class="text-neutral-700 dark:text-neutral-400 text-lg lg:text-md flex-1"
+                  class="text-neutral-700 dark:text-neutral-400 text-lg flex-1"
                 />
               {/if}
               <p>{(Math.abs(bias) * 100).toFixed(1)}%</p>
@@ -141,6 +141,7 @@
               description={news.description}
               urlToImage={news.urlToImage}
               publishedAt={news.publishedAt}
+              content={news.content}
               sentimentKind={news.sentiment.kind}
               sentimentScore={news.sentiment.confidence}
             /></a
