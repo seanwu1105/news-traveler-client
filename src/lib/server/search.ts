@@ -9,7 +9,7 @@ export async function search({
 }: CancelableApiRequest<SearchArgs>): Promise<SearchResult> {
   const url = new URL('/search', API_URL)
   url.searchParams.set('query', query)
-  url.searchParams.set('count', '20')
+  url.searchParams.set('count', '30')
   const response = await fetch(url, { signal })
 
   if (!response.ok) throwErrorResponse(response)
