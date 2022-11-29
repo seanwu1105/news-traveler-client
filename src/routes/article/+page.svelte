@@ -58,10 +58,14 @@
           {data.articleNews.title}
         </h1>
         <p>
-          <span>{data.articleNews.source}</span> • {#if data.articleNews.author}
+          <span>{data.articleNews.source ?? 'Unknown Source'}</span> • {#if data.articleNews.author}
             <span>{data.articleNews.author}</span> •
           {/if}
-          <time>{data.articleNews.publishedAt}</time>
+          {#if data.articleNews.publishedAt}
+            <span
+              >{new Date(data.articleNews.publishedAt).toLocaleString()}</span
+            >
+          {/if}
         </p>
 
         <div class="flex gap-4 items-center">
@@ -138,7 +142,7 @@
           >
             <News
               title={news.title}
-              description={news.description}
+              content={news.content}
               urlToImage={news.urlToImage}
               publishedAt={news.publishedAt}
               sentimentKind={news.sentiment.kind}

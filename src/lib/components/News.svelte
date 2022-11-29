@@ -4,9 +4,9 @@
   import IconEmotionUnhappy from '~icons/ri/emotion-unhappy-line'
 
   export let title: string
-  export let description: string
+  export let content: string
   export let urlToImage: string | null
-  export let publishedAt: string
+  export let publishedAt: string | null
   export let sentimentKind: 'positive' | 'negative' | 'neutral'
   export let sentimentScore: number
 </script>
@@ -44,11 +44,15 @@
           {title}
         </h2>
         <p class="line-clamp-2">
-          {description}
+          {content}
         </p>
       </article>
 
-      <time class="text-sm">{publishedAt}</time>
+      {#if publishedAt}
+        <time class="text-sm text-neutral-500">
+          {new Date(publishedAt).toLocaleString()}
+        </time>
+      {/if}
     </div>
 
     {#if urlToImage}

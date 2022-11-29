@@ -19,7 +19,7 @@
         >
           <News
             title={news.title}
-            description={news.description}
+            content={news.content}
             urlToImage={news.urlToImage}
             publishedAt={news.publishedAt}
             sentimentKind={news.sentiment.kind}

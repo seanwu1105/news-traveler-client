@@ -7,6 +7,7 @@ export const load: PageServerLoad = async ({ fetch, url }) => {
   if (!query) return { results: [], query: '' }
   const searchResult = await search({ fetch, query })
   return {
+    nextOffset: searchResult.nextOffset,
     results: Promise.all(
       searchResult.results.map(async news => ({
         ...news,

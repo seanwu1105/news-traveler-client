@@ -9,6 +9,7 @@ export async function search({
 }: CancelableApiRequest<SearchArgs>): Promise<SearchResult> {
   const url = new URL('/search', API_URL)
   url.searchParams.set('query', query)
+  url.searchParams.set('count', '20')
   const response = await fetch(url, { signal })
 
   if (!response.ok) throwErrorResponse(response)
@@ -20,15 +21,15 @@ type SearchArgs = { readonly query: string }
 
 type SearchResult = {
   readonly results: readonly News[]
+  readonly nextOffset: number | null
 }
 
 export type News = {
-  readonly source: string
+  readonly source: string | null
   readonly author: string | null
   readonly title: string
-  readonly description: string
   readonly content: string
   readonly url: string
   readonly urlToImage: string | null
-  readonly publishedAt: string
+  readonly publishedAt: string | null
 }
