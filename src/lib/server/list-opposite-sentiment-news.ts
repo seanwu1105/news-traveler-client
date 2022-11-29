@@ -11,7 +11,13 @@ export async function listOppositeSentimentNews({
   keyword,
 }: CancelableApiRequest<ListOppositeSentimentNewsArgs>): Promise<ListOppositeSentimentNewsResult> {
   const url = new URL('/opposite-sentiment-news', API_URL)
-  const body = JSON.stringify({ content, keyword })
+  const body = JSON.stringify({
+    content,
+    keyword,
+    count: 30,
+    similarityThreshold: 0,
+    sentimentFilter: ['positive', 'neutral', 'negative'],
+  })
   const response = await fetch(url, {
     signal,
     body,
