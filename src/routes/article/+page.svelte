@@ -2,11 +2,13 @@
   import LoadingIcon from '$lib/components/LoadingIcon.svelte'
   import News from '$lib/components/News.svelte'
   import NoData from '$lib/components/NoData.svelte'
-  import type { GetBiasArgs, GetBiasResult } from '$lib/server/get-bias'
+  import type { GetBiasArgs, GetBiasResult } from '$lib/get-bias'
+  import { getBias } from '$lib/get-bias'
   import type {
     ListOppositeSentimentNewsArgs,
     ListOppositeSentimentNewsResult,
-  } from '$lib/server/list-opposite-sentiment-news'
+  } from '$lib/list-opposite-sentiment-news'
+  import { listOppositeSentimentNews } from '$lib/list-opposite-sentiment-news'
   import IconEmotionHappy from '~icons/ri/emotion-happy-line'
   import IconEmotionNormal from '~icons/ri/emotion-normal-line'
   import IconEmotionUnhappy from '~icons/ri/emotion-unhappy-line'
@@ -43,7 +45,7 @@
 
   let abortController: AbortController | null = null
 
-  $: listOppositeSentimentNews = async (): Promise<
+  $: listOppositeSentimentNewsPromise = async (): Promise<
     ListOppositeSentimentNewsResult['results']
   > =>
     _listOppositeSentimentNews({
@@ -72,16 +74,11 @@
     abortController?.abort()
     abortController = new AbortController()
 
-    const response = await fetch('api/opposite-sentiment-news', {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify(args),
+    return listOppositeSentimentNews({
+      ...args,
+      fetch,
       signal: abortController.signal,
     })
-
-    const json = await response.json()
-    if (response.ok) return json
-    throw new Error(json.message)
   }
 
   function sortOppositeNews(news: ListOppositeSentimentNewsResult['results']) {
@@ -108,14 +105,10 @@
     })
   }
 
-  $: getBias = async (): Promise<GetBiasResult['bias']> => {
-    const body: GetBiasArgs = { content: $articleNews.content }
-    const response = await fetch('api/bias', {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify(body),
-    })
-    return response.json().then(r => r.bias)
+  $: getBiasPromise = async (): Promise<GetBiasResult['bias']> => {
+    const args: GetBiasArgs = { content: $articleNews.content }
+    const result = await getBias({ fetch, ...args })
+    return result.bias
   }
 </script>
 
@@ -161,7 +154,7 @@
             <p>{($articleNews.sentiment.confidence * 100).toFixed(1)}%</p>
           </div>
 
-          {#await getBias()}
+          {#await getBiasPromise()}
             <div class="h-full max-h-10 aspect-square"><LoadingIcon /></div>
           {:then bias}
             <div
@@ -243,7 +236,7 @@
       </div>
     </div>
 
-    {#await listOppositeSentimentNews()}
+    {#await listOppositeSentimentNewsPromise()}
       <div class="flex justify-center">
         <div class="w-24 m-16"><LoadingIcon /></div>
       </div>
