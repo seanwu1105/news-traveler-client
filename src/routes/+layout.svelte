@@ -1,5 +1,6 @@
 <script lang="ts">
   import IconGitHub from '~icons/ri/github-line'
+  import IconInformation from '~icons/ri/information-line'
   import IconSearch from '~icons/ri/search-line'
   import '../app.css'
   import type { LayoutData } from './$types'
@@ -40,6 +41,13 @@
           </button>
         </div>
       </form>
+    {:else}
+      <label
+        for="information-modal"
+        class="btn btn-circle btn-ghost hidden sm:inline-flex"
+      >
+        <IconInformation />
+      </label>
     {/if}
 
     <a
@@ -56,3 +64,21 @@
 <main class="flex-1 min-h-0">
   <slot />
 </main>
+
+<input type="checkbox" id="information-modal" class="modal-toggle" />
+<div class="modal">
+  <div class="modal-box">
+    <h3 class="font-bold text-lg">Credit and External Dependencies</h3>
+    <ul class="py-4">
+      <li>
+        <a href="https://www.thebipartisanpress.com/"
+          >Welton Wang @ The Bipartisan Press</a
+        >
+      </li>
+      <li><a href="https://newsdata.io/">NEWSDATA.IO</a></li>
+    </ul>
+    <div class="modal-action">
+      <label for="information-modal" class="btn">Close</label>
+    </div>
+  </div>
+</div>
