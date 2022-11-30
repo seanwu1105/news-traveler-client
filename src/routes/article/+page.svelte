@@ -23,12 +23,6 @@
   let neutralSentimentFilter = true
   let negativeSentimentFilter = true
 
-  $: sentimentFilter = buildSentimentFilter(
-    positiveSentimentFilter,
-    neutralSentimentFilter,
-    negativeSentimentFilter,
-  )
-
   function buildSentimentFilter(
     positiveSentimentFilter: boolean,
     neutralSentimentFilter: boolean,
@@ -43,14 +37,18 @@
 
   let abortController: AbortController | null = null
 
-  $: listOppositeSentimentNews = async (): Promise<
+  const listOppositeSentimentNews = async (): Promise<
     ListOppositeSentimentNewsResult['results']
   > =>
     _listOppositeSentimentNews({
       content: $articleNews.content,
       keyword: data.query,
       similarityThreshold,
-      sentimentFilter,
+      sentimentFilter: buildSentimentFilter(
+        positiveSentimentFilter,
+        neutralSentimentFilter,
+        negativeSentimentFilter,
+      ),
     })
       .then(r => r.results)
       .then(sortOppositeNews)
@@ -83,6 +81,8 @@
     if (response.ok) return json
     throw new Error(json.message)
   }
+
+  let listOppositeSentimentNewsPromise = listOppositeSentimentNews()
 
   function sortOppositeNews(news: ListOppositeSentimentNewsResult['results']) {
     return [...news].sort((a, b) => {
@@ -205,45 +205,56 @@
 
   <aside class="flex-1 overflow-auto">
     <h2 class="text-xl font-bold m-2">Same Event, Different Stories</h2>
-    <div class="m-4 grid gap-4 grid-cols-[max-content_auto_max-content]">
-      <span class="whitespace-nowrap">Similarity Threshold</span>
-      <input
-        type="range"
-        min="0"
-        max="1"
-        bind:value={similarityThreshold}
-        step="0.1"
-        class="range"
-      />
-      <span>{similarityThreshold}</span>
+    <div class="flex p-4 items-center">
+      <div class="flex-1 grid gap-4 grid-cols-[max-content_auto_max-content]">
+        <span class="whitespace-nowrap">Similarity Threshold</span>
+        <input
+          type="range"
+          min="0"
+          max="1"
+          bind:value={similarityThreshold}
+          step="0.1"
+          class="range"
+        />
+        <span>{similarityThreshold}</span>
 
-      <span class="whitespace-nowrap">Sentiment Filter</span>
-      <div class="btn-group col-span-2">
-        <button
-          class="btn btn-xs"
-          class:btn-active={positiveSentimentFilter}
-          on:click={() => (positiveSentimentFilter = !positiveSentimentFilter)}
-        >
-          Positive</button
-        >
-        <button
-          class="btn btn-xs"
-          class:btn-active={neutralSentimentFilter}
-          on:click={() => (neutralSentimentFilter = !neutralSentimentFilter)}
-        >
-          Neutral</button
-        >
-        <button
-          class="btn btn-xs"
-          class:btn-active={negativeSentimentFilter}
-          on:click={() => (negativeSentimentFilter = !negativeSentimentFilter)}
-        >
-          Negative</button
-        >
+        <span class="whitespace-nowrap">Sentiment Filter</span>
+        <div class="btn-group col-span-2">
+          <button
+            class="btn btn-xs"
+            class:btn-active={positiveSentimentFilter}
+            on:click={() =>
+              (positiveSentimentFilter = !positiveSentimentFilter)}
+          >
+            Positive</button
+          >
+          <button
+            class="btn btn-xs"
+            class:btn-active={neutralSentimentFilter}
+            on:click={() => (neutralSentimentFilter = !neutralSentimentFilter)}
+          >
+            Neutral</button
+          >
+          <button
+            class="btn btn-xs"
+            class:btn-active={negativeSentimentFilter}
+            on:click={() =>
+              (negativeSentimentFilter = !negativeSentimentFilter)}
+          >
+            Negative</button
+          >
+        </div>
       </div>
+      <button
+        class="btn"
+        on:click={() =>
+          (listOppositeSentimentNewsPromise = listOppositeSentimentNews())}
+      >
+        Filter Result
+      </button>
     </div>
 
-    {#await listOppositeSentimentNews()}
+    {#await listOppositeSentimentNewsPromise}
       <div class="flex justify-center">
         <div class="w-24 m-16"><LoadingIcon /></div>
       </div>
