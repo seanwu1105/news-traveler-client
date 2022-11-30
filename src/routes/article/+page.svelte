@@ -29,7 +29,45 @@
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify(body),
     })
-    return response.json().then(r => r.results)
+    return response
+      .json()
+      .then(r => r.results)
+      .then(sortOppositeNews)
+      .then(news => {
+        if ($articleNews.sentiment.kind === 'positive')
+          return [...news].reverse()
+        if ($articleNews.sentiment.kind === 'neutral') {
+          const positive = news.filter(n => n.sentiment.kind === 'positive')
+          const neutral = news.filter(n => n.sentiment.kind === 'neutral')
+          const negative = news.filter(n => n.sentiment.kind === 'negative')
+          return [...positive, ...negative, ...neutral]
+        }
+        return news
+      })
+  }
+
+  function sortOppositeNews(news: ListOppositeSentimentNewsResult['results']) {
+    return [...news].sort((a, b) => {
+      if (a.sentiment.kind === 'positive' && b.sentiment.kind === 'neutral')
+        return -1
+      if (a.sentiment.kind === 'positive' && b.sentiment.kind === 'negative')
+        return -1
+      if (a.sentiment.kind === 'neutral' && b.sentiment.kind === 'negative')
+        return -1
+      if (a.sentiment.kind === 'neutral' && b.sentiment.kind === 'positive')
+        return 1
+      if (a.sentiment.kind === 'negative' && b.sentiment.kind === 'positive')
+        return 1
+      if (a.sentiment.kind === 'negative' && b.sentiment.kind === 'neutral')
+        return 1
+      if (a.sentiment.kind === 'positive' && b.sentiment.kind === 'positive')
+        return b.sentiment.confidence - a.sentiment.confidence
+      if (a.sentiment.kind === 'neutral' && b.sentiment.kind === 'neutral')
+        return 0
+      if (a.sentiment.kind === 'negative' && b.sentiment.kind === 'negative')
+        return a.sentiment.confidence - b.sentiment.confidence
+      return 0
+    })
   }
 
   $: getBias = async (): Promise<GetBiasResult['bias']> => {
