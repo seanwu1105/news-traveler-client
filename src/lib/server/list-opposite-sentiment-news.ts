@@ -16,7 +16,7 @@ export async function listOppositeSentimentNews({
   const body = JSON.stringify({
     content,
     keyword,
-    count: 15,
+    count: 24,
     similarityThreshold,
     sentimentFilter,
   })
