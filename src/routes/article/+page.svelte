@@ -124,7 +124,7 @@
     class="flex-1 card card-compact card-bordered ml-2 mb-2 overflow-auto"
   >
     {#if $articleNews.urlToImage}
-      <figure class="px-4 pt-4">
+      <figure class="px-4 pt-4 shrink-0">
         <img src={$articleNews.urlToImage} alt="cover" class="rounded-xl" />
       </figure>
     {/if}
