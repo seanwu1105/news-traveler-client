@@ -6,10 +6,12 @@ export async function search({
   fetch,
   signal,
   query,
+  offset,
 }: CancelableApiRequest<SearchArgs>): Promise<SearchResult> {
   const url = new URL('/search', API_URL)
   url.searchParams.set('query', query)
   url.searchParams.set('count', '25')
+  if (offset) url.searchParams.set('offset', `${offset}`)
   const response = await fetch(url, { signal })
 
   if (!response.ok) await throwErrorResponse(response)
@@ -17,9 +19,9 @@ export async function search({
   return response.json()
 }
 
-type SearchArgs = { readonly query: string }
+type SearchArgs = { readonly query: string; readonly offset?: number }
 
-type SearchResult = {
+export type SearchResult = {
   readonly results: readonly News[]
   readonly nextOffset: number | null
 }

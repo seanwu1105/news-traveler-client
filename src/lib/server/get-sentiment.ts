@@ -22,7 +22,7 @@ export async function getSentiment({
 
 type GetSentimentArgs = { readonly content: string }
 
-type GetSentimentResult = {
+export type GetSentimentResult = {
   readonly sentiment: Sentiment
 }
 

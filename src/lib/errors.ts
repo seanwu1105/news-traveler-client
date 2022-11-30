@@ -13,3 +13,4 @@ export async function throwErrorResponse(response: Response) {
 const InternalServerErrorCode = 500
 const GatewayTimeoutCode = 504
 export const SeeOtherCode = 303
+export const ParameterErrorCode = 400
