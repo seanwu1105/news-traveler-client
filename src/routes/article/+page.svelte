@@ -205,7 +205,7 @@
 
   <aside class="flex-1 overflow-auto">
     <h2 class="text-xl font-bold m-2">Same Event, Different Stories</h2>
-    <div class="flex p-4 items-center">
+    <div class="flex p-4 items-center flex-wrap xl:flex-nowrap gap-4">
       <div class="flex-1 grid gap-4 grid-cols-[max-content_auto_max-content]">
         <span class="whitespace-nowrap">Similarity Threshold</span>
         <input
@@ -246,11 +246,11 @@
         </div>
       </div>
       <button
-        class="btn"
+        class="btn w-full xl:w-auto"
         on:click={() =>
           (listOppositeSentimentNewsPromise = listOppositeSentimentNews())}
       >
-        Filter Result
+        Filter Results
       </button>
     </div>
 
