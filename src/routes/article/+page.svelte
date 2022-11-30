@@ -264,7 +264,13 @@
       {:else}
         {#each oppositeSentimentNews as news}
           <!-- svelte-ignore a11y-invalid-attribute -->
-          <a on:click={() => articleNews.set(news)} href="#">
+          <a
+            on:click={() => {
+              articleNews.set(news)
+              listOppositeSentimentNewsPromise = listOppositeSentimentNews()
+            }}
+            href="#"
+          >
             <News
               title={news.title}
               content={news.content}
