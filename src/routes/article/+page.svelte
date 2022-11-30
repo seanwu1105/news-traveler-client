@@ -17,7 +17,7 @@
 
   export let data: PageData
 
-  let similarityThreshold = 0.5
+  let similarityThreshold = 0.2
 
   let positiveSentimentFilter = true
   let neutralSentimentFilter = true
