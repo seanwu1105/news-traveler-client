@@ -1,7 +1,7 @@
 <script lang="ts">
   import News from '$lib/components/News.svelte'
   import NoData from '$lib/components/NoData.svelte'
-  import { setArticleNews } from '../article/+page'
+  import { articleNews } from '../article/store'
   import type { PageData } from './$types'
 
   export let data: PageData
@@ -14,7 +14,7 @@
     {#each data.results as news}
       <div class="w-full md:w-1/2">
         <a
-          on:click={() => setArticleNews(news)}
+          on:click={() => articleNews.set(news)}
           href={`/article?${new URLSearchParams({ query: data.query })}`}
         >
           <News

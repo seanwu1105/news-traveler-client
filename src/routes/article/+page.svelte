@@ -13,6 +13,7 @@
   import IconExternalLink from '~icons/ri/external-link-line'
   import IconGovernment from '~icons/ri/government-line'
   import type { PageData } from './$types'
+  import { articleNews } from './store'
 
   export let data: PageData
 
@@ -20,7 +21,7 @@
     ListOppositeSentimentNewsResult['results']
   > => {
     const body: ListOppositeSentimentNewsArgs = {
-      content: data.articleNews.content,
+      content: $articleNews.content,
       keyword: data.query,
     }
     const response = await fetch('api/opposite-sentiment-news', {
@@ -32,7 +33,7 @@
   }
 
   $: getBias = async (): Promise<GetBiasResult['bias']> => {
-    const body: GetBiasArgs = { content: data.articleNews.content }
+    const body: GetBiasArgs = { content: $articleNews.content }
     const response = await fetch('api/bias', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
@@ -46,35 +47,33 @@
   <article
     class="flex-1 card card-compact card-bordered ml-2 mb-2 overflow-auto"
   >
-    {#if data.articleNews.urlToImage}
+    {#if $articleNews.urlToImage}
       <figure class="px-4 pt-4">
-        <img src={data.articleNews.urlToImage} alt="cover" class="rounded-xl" />
+        <img src={$articleNews.urlToImage} alt="cover" class="rounded-xl" />
       </figure>
     {/if}
 
     <div class="card-body">
       <header class="flex flex-col gap-4">
         <h1 class="card-title">
-          {data.articleNews.title}
+          {$articleNews.title}
         </h1>
         <p>
-          <span>{data.articleNews.source ?? 'Unknown Source'}</span> • {#if data.articleNews.author}
-            <span>{data.articleNews.author}</span> •
+          <span>{$articleNews.source ?? 'Unknown Source'}</span> • {#if $articleNews.author}
+            <span>{$articleNews.author}</span> •
           {/if}
-          {#if data.articleNews.publishedAt}
-            <span
-              >{new Date(data.articleNews.publishedAt).toLocaleString()}</span
-            >
+          {#if $articleNews.publishedAt}
+            <span>{new Date($articleNews.publishedAt).toLocaleString()}</span>
           {/if}
         </p>
 
         <div class="flex gap-4 items-center">
           <div class="flex flex-col items-center">
-            {#if data.articleNews.sentiment.kind === 'positive'}
+            {#if $articleNews.sentiment.kind === 'positive'}
               <IconEmotionHappy
                 class="text-emerald-700 dark:text-emerald-400 text-lg lg:text-md flex-1"
               />
-            {:else if data.articleNews.sentiment.kind === 'negative'}
+            {:else if $articleNews.sentiment.kind === 'negative'}
               <IconEmotionUnhappy
                 class="text-rose-700 dark:text-rose-400 text-lg lg:text-md flex-1"
               />
@@ -83,7 +82,7 @@
                 class="text-neutral-700 dark:text-neutral-400 text-lg lg:text-md flex-1"
               />
             {/if}
-            <p>{(data.articleNews.sentiment.confidence * 100).toFixed(1)}%</p>
+            <p>{($articleNews.sentiment.confidence * 100).toFixed(1)}%</p>
           </div>
 
           {#await getBias()}
@@ -111,7 +110,7 @@
 
           <div class="flex-1" />
 
-          <a href={data.articleNews.url} target="_blank" rel="noreferrer"
+          <a href={$articleNews.url} target="_blank" rel="noreferrer"
             ><button class="btn btn-circle">
               <IconExternalLink />
             </button></a
@@ -120,7 +119,7 @@
       </header>
 
       <p class="text-base leading-loose mt-5">
-        {data.articleNews.content}
+        {$articleNews.content}
       </p>
     </div>
   </article>
@@ -136,10 +135,8 @@
         <NoData />
       {:else}
         {#each oppositeSentimentNews as news}
-          <a
-            on:click={() => (data.articleNews = news)}
-            href={`/article?${new URLSearchParams({ query: data.query })}`}
-          >
+          <!-- svelte-ignore a11y-invalid-attribute -->
+          <a on:click={() => articleNews.set(news)} href="#">
             <News
               title={news.title}
               content={news.content}
