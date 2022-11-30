@@ -5,7 +5,7 @@
     <link rel="icon" href="%sveltekit.assets%/favicon.png" />
     <meta name="viewport" content="width=device-width" />
 
-    <!-- Hotjar Tracking Code for my site -->
+    <!-- Hotjar Tracking Code -->
     <script>
       ;(function (h, o, t, j, a, r) {
         h.hj =
@@ -20,6 +20,27 @@
         r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv
         a.appendChild(r)
       })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=')
+    </script>
+
+    <!-- Smartlook Tracking Code -->
+    <script type="text/javascript">
+      window.smartlook ||
+        (function (d) {
+          var o = (smartlook = function () {
+              o.api.push(arguments)
+            }),
+            h = d.getElementsByTagName('head')[0]
+          var c = d.createElement('script')
+          o.api = new Array()
+          c.async = true
+          c.type = 'text/javascript'
+          c.charset = 'utf-8'
+          c.src = 'https://web-sdk.smartlook.com/recorder.js'
+          h.appendChild(c)
+        })(document)
+      smartlook('init', '1dca9fa310922ff38e4316b4baa76bc13a31fe52', {
+        region: 'eu',
+      })
     </script>
 
     %sveltekit.head%
