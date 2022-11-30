@@ -126,7 +126,10 @@
           {#await getBias()}
             <div class="h-full max-h-10 aspect-square"><LoadingIcon /></div>
           {:then bias}
-            <div class="flex flex-col items-center">
+            <div
+              class="flex flex-col items-center"
+              title={`${bias > 0 ? 'Right' : 'Left'} Wing Political View`}
+            >
               {#if bias > 0}
                 <IconGovernment
                   class="text-red-500 dark:text-red-400 text-lg lg:text-md flex-1"
