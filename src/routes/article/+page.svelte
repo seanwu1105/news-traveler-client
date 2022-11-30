@@ -17,20 +17,41 @@
 
   export let data: PageData
 
+  let similarityThreshold = 0.5
+
+  let positiveSentimentFilter = true
+  let neutralSentimentFilter = true
+  let negativeSentimentFilter = true
+
+  $: sentimentFilter = buildSentimentFilter(
+    positiveSentimentFilter,
+    neutralSentimentFilter,
+    negativeSentimentFilter,
+  )
+
+  function buildSentimentFilter(
+    positiveSentimentFilter: boolean,
+    neutralSentimentFilter: boolean,
+    negativeSentimentFilter: boolean,
+  ) {
+    const sentimentFilter = new Set<'positive' | 'negative' | 'neutral'>([])
+    if (positiveSentimentFilter) sentimentFilter.add('positive')
+    if (neutralSentimentFilter) sentimentFilter.add('neutral')
+    if (negativeSentimentFilter) sentimentFilter.add('negative')
+    return [...sentimentFilter]
+  }
+
+  let abortController: AbortController | null = null
+
   $: listOppositeSentimentNews = async (): Promise<
     ListOppositeSentimentNewsResult['results']
-  > => {
-    const body: ListOppositeSentimentNewsArgs = {
+  > =>
+    _listOppositeSentimentNews({
       content: $articleNews.content,
       keyword: data.query,
-    }
-    const response = await fetch('api/opposite-sentiment-news', {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify(body),
+      similarityThreshold,
+      sentimentFilter,
     })
-    return response
-      .json()
       .then(r => r.results)
       .then(sortOppositeNews)
       .then(news => {
@@ -44,6 +65,23 @@
         }
         return news
       })
+
+  async function _listOppositeSentimentNews(
+    args: ListOppositeSentimentNewsArgs,
+  ) {
+    abortController?.abort()
+    abortController = new AbortController()
+
+    const response = await fetch('api/opposite-sentiment-news', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(args),
+      signal: abortController.signal,
+    })
+
+    const json = await response.json()
+    if (response.ok) return json
+    throw new Error(json.message)
   }
 
   function sortOppositeNews(news: ListOppositeSentimentNewsResult['results']) {
@@ -145,8 +183,8 @@
               {/if}
               <p>{(Math.abs(bias) * 100).toFixed(1)}%</p>
             </div>
-          {:catch}
-            <p>error</p>
+          {:catch error}
+            <p title={error.message}>error</p>
           {/await}
 
           <div class="flex-1" />
@@ -167,6 +205,44 @@
 
   <aside class="flex-1 overflow-auto">
     <h2 class="text-xl font-bold m-2">Same Event, Different Stories</h2>
+    <div class="m-4 grid gap-4 grid-cols-[max-content_auto_max-content]">
+      <span class="whitespace-nowrap">Similarity Threshold</span>
+      <input
+        type="range"
+        min="0"
+        max="1"
+        bind:value={similarityThreshold}
+        step="0.1"
+        class="range"
+      />
+      <span>{similarityThreshold}</span>
+
+      <span class="whitespace-nowrap">Sentiment Filter</span>
+      <div class="btn-group col-span-2">
+        <button
+          class="btn btn-xs"
+          class:btn-active={positiveSentimentFilter}
+          on:click={() => (positiveSentimentFilter = !positiveSentimentFilter)}
+        >
+          Positive</button
+        >
+        <button
+          class="btn btn-xs"
+          class:btn-active={neutralSentimentFilter}
+          on:click={() => (neutralSentimentFilter = !neutralSentimentFilter)}
+        >
+          Neutral</button
+        >
+        <button
+          class="btn btn-xs"
+          class:btn-active={negativeSentimentFilter}
+          on:click={() => (negativeSentimentFilter = !negativeSentimentFilter)}
+        >
+          Negative</button
+        >
+      </div>
+    </div>
+
     {#await listOppositeSentimentNews()}
       <div class="flex justify-center">
         <div class="w-24 m-16"><LoadingIcon /></div>

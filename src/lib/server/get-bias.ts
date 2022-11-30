@@ -15,7 +15,7 @@ export async function getBias({
     headers: { 'content-type': 'application/json' },
   })
 
-  if (!response.ok) throwErrorResponse(response)
+  if (!response.ok) await throwErrorResponse(response)
 
   return response.json()
 }

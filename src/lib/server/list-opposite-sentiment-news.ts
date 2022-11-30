@@ -9,14 +9,16 @@ export async function listOppositeSentimentNews({
   signal,
   content,
   keyword,
+  similarityThreshold,
+  sentimentFilter,
 }: CancelableApiRequest<ListOppositeSentimentNewsArgs>): Promise<ListOppositeSentimentNewsResult> {
   const url = new URL('/opposite-sentiment-news', API_URL)
   const body = JSON.stringify({
     content,
     keyword,
-    count: 30,
-    similarityThreshold: 0,
-    sentimentFilter: ['positive', 'neutral', 'negative'],
+    count: 15,
+    similarityThreshold,
+    sentimentFilter,
   })
   const response = await fetch(url, {
     signal,
@@ -25,7 +27,7 @@ export async function listOppositeSentimentNews({
     headers: { 'content-type': 'application/json' },
   })
 
-  if (!response.ok) throwErrorResponse(response)
+  if (!response.ok) await throwErrorResponse(response)
 
   return response.json()
 }
@@ -33,6 +35,8 @@ export async function listOppositeSentimentNews({
 export type ListOppositeSentimentNewsArgs = {
   readonly content: string
   readonly keyword: string
+  readonly similarityThreshold: number
+  readonly sentimentFilter: readonly ('positive' | 'negative' | 'neutral')[]
 }
 
 export type ListOppositeSentimentNewsResult = {

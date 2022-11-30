@@ -53,6 +53,6 @@
   </div>
 </nav>
 
-<main class="flex-1">
+<main class="flex-1 min-h-0">
   <slot />
 </main>
