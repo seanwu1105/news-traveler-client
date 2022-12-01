@@ -15,7 +15,7 @@
   class="flex m-2 rounded-2xl bg-base-200 transition group group-hover:bg-base-300"
 >
   <div
-    class="flex flex-col gap-1 justify-center items-center p-2 lg:flex-row lg:gap-5"
+    class="flex flex-col gap-1 justify-center items-center p-2 lg:flex-row lg:gap-5 lg:w-24 w-20"
   >
     <div class="flex flex-col gap-1 items-center">
       {#if sentimentKind === 'positive'}
@@ -31,6 +31,7 @@
           class="text-neutral-700 dark:text-neutral-400 text-lg lg:text-3xl"
         />
       {/if}
+      <span class="lg:text-lg capitalize">{sentimentKind}</span>
       <span class="lg:text-lg">{(sentimentScore * 100).toFixed(1)}%</span>
     </div>
   </div>

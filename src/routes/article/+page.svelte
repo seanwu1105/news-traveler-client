@@ -164,11 +164,14 @@
                 class="text-neutral-700 dark:text-neutral-400 text-lg lg:text-md flex-1"
               />
             {/if}
+            <p class="capitalize">{$articleNews.sentiment.kind}</p>
             <p>{($articleNews.sentiment.confidence * 100).toFixed(1)}%</p>
           </div>
 
           {#await getBias()}
-            <div class="h-full max-h-10 aspect-square"><LoadingIcon /></div>
+            <div class="h-full max-h-10 aspect-square">
+              <LoadingIcon />
+            </div>
           {:then bias}
             <div
               class="flex flex-col items-center"
@@ -187,6 +190,7 @@
                   class="text-neutral-700 dark:text-neutral-400 text-lg lg:text-md flex-1"
                 />
               {/if}
+              <p>{bias > 0 ? 'Right' : 'Left'} Wing</p>
               <p>{(Math.abs(bias) * 100).toFixed(1)}%</p>
             </div>
           {:catch error}
