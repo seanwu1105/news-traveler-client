@@ -77,9 +77,15 @@
       signal: abortController.signal,
     })
 
-    const json = await response.json()
-    if (response.ok) return json
-    throw new Error(json.message)
+    try {
+      const json = await response.json()
+      if (response.ok) return json
+      throw new Error(json.message)
+    } catch (e) {
+      throw new Error(
+        `Response is not in JSON format: ${await response.text()}`,
+      )
+    }
   }
 
   let listOppositeSentimentNewsPromise = listOppositeSentimentNews()

@@ -17,7 +17,11 @@
     if (!data.nextOffset) throw new Error('No more data')
     params.append('offset', `${data.nextOffset}`)
     const response = await fetch(`api/search?${params}`)
-    const json = await response.json()
+    const json = await response.json().catch(async () => {
+      throw new Error(
+        `Response is not in JSON format: ${await response.text()}`,
+      )
+    })
     if (!response.ok) throw new Error(json.message)
     const { results, nextOffset } = json as SearchResult
 
