@@ -15,7 +15,7 @@
 </svelte:head>
 
 <nav class="navbar flex-initial">
-  <div class="navbar-start">
+  <div class="navbar-start flex-1">
     {#if !data.isRoot}
       <a href="/" class="btn btn-ghost text-xl normal-case"
         >News
@@ -23,7 +23,6 @@
       >
     {/if}
   </div>
-  <div class="navbar-center" />
   <div class="navbar-end">
     {#if !data.isRoot}
       <form action={`/search`}>
@@ -34,7 +33,7 @@
             type="text"
             placeholder="Search…"
             required
-            class="input input-bordered input-sm"
+            class="input input-bordered input-sm w-full"
           />
           <button class="btn btn-square btn-sm">
             <IconSearch width="1.4em" height="1.4em" />
